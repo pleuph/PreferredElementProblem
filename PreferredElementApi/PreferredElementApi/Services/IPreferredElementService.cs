@@ -6,6 +6,7 @@ namespace PreferredElementApi.Services
     {
         ItemDto[] GetItems();
         ItemDto GetItemById(int itemId);
+        ItemDto[] GetPreferredItems(int[] brickDesignIds);
         MasterDataDto GetMasterDataByItemId(int itemId);
         MasterDataDto[] GetMasterDatas();
     }

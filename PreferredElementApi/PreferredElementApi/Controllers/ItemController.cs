@@ -28,5 +28,11 @@ namespace PreferredElementApi.Controllers
         {
             return preferredElementService.GetItemById(itemId);
         }
+
+        [HttpGet("getpreferred")]
+        public ItemDto[] GetPreferredItems([FromQuery] int[] brickDesignIds)
+        {
+            return preferredElementService.GetPreferredItems(brickDesignIds);
+        }
     }
 }

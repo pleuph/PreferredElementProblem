@@ -39,5 +39,25 @@ namespace PreferredElementData
                 .ThenInclude(a => a.ColorCode)
                 .FirstOrDefault(a => a.Id == itemId);
         }
+
+        public Item[] GetPreferredItems(int[] brickDesignIds)
+        {
+            var matchingItems = 
+                from item in dbContext.Items
+                where item.ItemBricks.Count() == brickDesignIds.Length
+                && item.ItemBricks.All(a => brickDesignIds.Contains(a.Brick.DesignId))
+                let masterData = item.MasterDatas.First()
+                orderby masterData.Status, masterData.Price
+                select item;
+
+            var includingItems = matchingItems
+                .Include(a => a.MasterDatas)
+                .Include(a => a.ItemBricks)
+                .ThenInclude(a => a.Brick)
+                .ThenInclude(a => a.BrickColorCodes)
+                .ThenInclude(a => a.ColorCode);
+
+            return includingItems.ToArray();
+        }
     }
 }

@@ -54,5 +54,15 @@ namespace PreferredElementApi.Services
             var itemDtos = mapper.Map<ItemDto[]>(items);
             return itemDtos;
         }
+
+        public ItemDto[] GetPreferredItems(int[] brickDesignIds)
+        {
+            var items = preferredElementRepository.GetPreferredItems(brickDesignIds);
+
+            if (!items?.Any() == true) return Array.Empty<ItemDto>();
+
+            var itemDtos = mapper.Map<ItemDto[]>(items);
+            return itemDtos;
+        }
     }
 }

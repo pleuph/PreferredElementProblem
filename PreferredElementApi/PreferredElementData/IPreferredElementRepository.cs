@@ -6,6 +6,7 @@ namespace PreferredElementData
     {
         Item[] GetItems();
         Item GetItemById(int itemId);
+        Item[] GetPreferredItems(int[] brickDesignIds);
         MasterData GetMasterDataByItemId(int itemId);
         MasterData[] GetMasterDatas();
     }
