@@ -7,5 +7,6 @@
         public DateTime Created { get; set; }
 
         public List<BrickColorCode> BrickColorCodes { get; set; } = new List<BrickColorCode>();
+        public List<Item> Items { get; set; } = new List<Item>();
     }
 }

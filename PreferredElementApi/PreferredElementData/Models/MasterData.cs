@@ -8,6 +8,8 @@
         public ItemStatus Status { get; set; }
         public DateTime Created { get; set; }
 
+        public Item Item { get; set; }
+
         // Considerations:
         // Assuming price is the suggested retail price of an item (LEGO set),
         // the data model would certainly have to account for different markets,
