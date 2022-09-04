@@ -75,11 +75,55 @@ namespace PreferredElementData.Tests
 
                 // For now we'll only add a single master data record
                 var masterData = new MasterData { 
-                    Status = (ItemStatus)random.Next(0, 5),
+                    Status = (ItemStatus)random.Next(0, 4),
                     Price = (decimal)random.Next(1, 100000) / 100                    
                 };
 
                 var item = new Item {
+                    ItemBricks = itemBricks,
+                    MasterDatas = new List<MasterData> { masterData }
+                };
+
+                context.Items.Add(item);
+            }
+
+            context.SaveChanges();
+        }
+
+        //[Fact(Skip = "Data generation")]
+        [Fact]
+        public void GenerateItemsWithSpecificBricks()
+        {
+            var context = new DesignTimePreferredElementDbContext().CreateDbContext(null);
+
+            var random = new Random();
+
+            var designIds = new[] { 207080, 501070, 806010, 508090, 201030 };
+            var bricks = context.Bricks.Where(a => designIds.Contains(a.DesignId) ).ToArray();
+
+            // Add 7 items
+            for (int i = 0; i < 7; i++)
+            {
+                var itemBricks = new List<ItemBrick>();
+                for (int j = 0; j < designIds.Length; j++)
+                {
+                    var brickId = bricks[j].Id;
+
+                    // Randomize amount (1-99)
+                    var amount = random.Next(1, 100);
+
+                    itemBricks.Add(new ItemBrick { BrickId = brickId, Amount = amount });
+                }
+
+                // For now we'll only add a single master data record
+                var masterData = new MasterData
+                {
+                    Status = (ItemStatus)random.Next(0, 4),
+                    Price = (decimal)random.Next(1, 100000) / 100
+                };
+
+                var item = new Item
+                {
                     ItemBricks = itemBricks,
                     MasterDatas = new List<MasterData> { masterData }
                 };
