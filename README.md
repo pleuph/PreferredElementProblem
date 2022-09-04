@@ -20,7 +20,7 @@ MasterData has:
   - Novelty
   - Outgoing
   - Discontinued
-  Status history?
+Status history?
   
 ### Services
 
