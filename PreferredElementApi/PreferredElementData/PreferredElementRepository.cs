@@ -1,4 +1,5 @@
-﻿using PreferredElementData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PreferredElementData.Models;
 
 namespace PreferredElementData
 {
@@ -23,7 +24,20 @@ namespace PreferredElementData
 
         public Item[] GetItems()
         {
-            return dbContext.Items.ToArray();
+            return dbContext.Items
+                .Include(a => a.MasterDatas)
+                .ToArray();
+        }
+
+        public Item GetItemById(int itemId)
+        {
+            return dbContext.Items
+                .Include(a => a.MasterDatas)
+                .Include(a => a.ItemBricks)
+                .ThenInclude(a => a.Brick)
+                .ThenInclude(a => a.BrickColorCodes)
+                .ThenInclude(a => a.ColorCode)
+                .FirstOrDefault(a => a.Id == itemId);
         }
     }
 }

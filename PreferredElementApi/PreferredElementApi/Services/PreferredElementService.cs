@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using PreferredElementApi.Models;
 using PreferredElementData;
-using PreferredElementData.Models;
 
 namespace PreferredElementApi.Services
 {
@@ -20,7 +19,7 @@ namespace PreferredElementApi.Services
         {
             var masterDatas =  preferredElementRepository.GetMasterDatas();
 
-            if(!masterDatas?.Any() == true) return new MasterDataDto[0];
+            if(!masterDatas?.Any() == true) return Array.Empty<MasterDataDto>();
 
             var masterDataDtos = mapper.Map<MasterDataDto[]>(masterDatas);
             return masterDataDtos;
@@ -36,9 +35,24 @@ namespace PreferredElementApi.Services
             return masterDataDto;
         }
 
-        public Item[] GetItems()
+        public ItemDto GetItemById(int itemId)
         {
-            return preferredElementRepository.GetItems();
+            var item = preferredElementRepository.GetItemById(itemId);
+
+            if(item == null) return null;
+
+            var itemDto = mapper.Map<ItemDto>(item);
+            return itemDto;
+        }
+
+        public ItemDto[] GetItems()
+        {
+            var items = preferredElementRepository.GetItems();
+
+            if(!items?.Any() == true) return Array.Empty<ItemDto>();
+
+            var itemDtos = mapper.Map<ItemDto[]>(items);
+            return itemDtos;
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using PreferredElementApi.Models;
-using PreferredElementData.Models;
 
 namespace PreferredElementApi.Services
 {
     public interface IPreferredElementService
     {
-        Item[] GetItems();
+        ItemDto[] GetItems();
+        ItemDto GetItemById(int itemId);
         MasterDataDto GetMasterDataByItemId(int itemId);
         MasterDataDto[] GetMasterDatas();
     }
