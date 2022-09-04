@@ -15,6 +15,7 @@ namespace PreferredElementData
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // TODO: Add index on design id.
             modelBuilder.Entity<Brick>(a => {
                 a.Property(b => b.Created).HasDefaultValueSql("getutcdate()");
             });
