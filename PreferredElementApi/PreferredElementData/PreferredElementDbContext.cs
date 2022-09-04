@@ -21,7 +21,7 @@ namespace PreferredElementData
 
             modelBuilder.Entity<BrickColorCode>(a => {
                 a.Property(b => b.Created).HasDefaultValueSql("getutcdate()");
-                a.HasKey(b => new { b.BrickId, b.ColorCodeId, b.Order });
+                a.HasKey(b => new { b.BrickId, b.Order, b.ColorCodeId });
             });
 
             modelBuilder.Entity<ColorCode>(a => { 
@@ -39,6 +39,12 @@ namespace PreferredElementData
 
             modelBuilder.Entity<Item>(a => {
                 a.Property(b => b.Created).HasDefaultValueSql("getutcdate()");
+            });
+
+            modelBuilder.Entity<ItemBrick>(a => {
+                a.Property(b => b.Created).HasDefaultValueSql("getutcdate()");
+                a.HasKey(b => new { b.ItemId, b.BrickId });
+                a.Property(b => b.Amount).IsRequired();
             });
 
             modelBuilder.Entity<MasterData>(a => {

@@ -22,21 +22,6 @@ namespace PreferredElementData.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BrickItem", b =>
-                {
-                    b.Property<int>("BricksId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BricksId", "ItemsId");
-
-                    b.HasIndex("ItemsId");
-
-                    b.ToTable("BrickItem");
-                });
-
             modelBuilder.Entity("PreferredElementData.Models.Brick", b =>
                 {
                     b.Property<int>("Id")
@@ -63,18 +48,18 @@ namespace PreferredElementData.Migrations
                     b.Property<int>("BrickId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ColorCodeId")
+                    b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.Property<long>("Order")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ColorCodeId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.HasKey("BrickId", "ColorCodeId", "Order");
+                    b.HasKey("BrickId", "Order", "ColorCodeId");
 
                     b.HasIndex("ColorCodeId");
 
@@ -159,6 +144,29 @@ namespace PreferredElementData.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("PreferredElementData.Models.ItemBrick", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BrickId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.HasKey("ItemId", "BrickId");
+
+                    b.HasIndex("BrickId");
+
+                    b.ToTable("ItemBrick");
+                });
+
             modelBuilder.Entity("PreferredElementData.Models.MasterData", b =>
                 {
                     b.Property<int>("Id")
@@ -188,21 +196,6 @@ namespace PreferredElementData.Migrations
                     b.ToTable("MasterData");
                 });
 
-            modelBuilder.Entity("BrickItem", b =>
-                {
-                    b.HasOne("PreferredElementData.Models.Brick", null)
-                        .WithMany()
-                        .HasForeignKey("BricksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PreferredElementData.Models.Item", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PreferredElementData.Models.BrickColorCode", b =>
                 {
                     b.HasOne("PreferredElementData.Models.Brick", "Brick")
@@ -222,6 +215,25 @@ namespace PreferredElementData.Migrations
                     b.Navigation("ColorCode");
                 });
 
+            modelBuilder.Entity("PreferredElementData.Models.ItemBrick", b =>
+                {
+                    b.HasOne("PreferredElementData.Models.Brick", "Brick")
+                        .WithMany("ItemBricks")
+                        .HasForeignKey("BrickId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PreferredElementData.Models.Item", "Item")
+                        .WithMany("ItemBricks")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brick");
+
+                    b.Navigation("Item");
+                });
+
             modelBuilder.Entity("PreferredElementData.Models.MasterData", b =>
                 {
                     b.HasOne("PreferredElementData.Models.Item", "Item")
@@ -236,10 +248,14 @@ namespace PreferredElementData.Migrations
             modelBuilder.Entity("PreferredElementData.Models.Brick", b =>
                 {
                     b.Navigation("BrickColorCodes");
+
+                    b.Navigation("ItemBricks");
                 });
 
             modelBuilder.Entity("PreferredElementData.Models.Item", b =>
                 {
+                    b.Navigation("ItemBricks");
+
                     b.Navigation("MasterDatas");
                 });
 #pragma warning restore 612, 618

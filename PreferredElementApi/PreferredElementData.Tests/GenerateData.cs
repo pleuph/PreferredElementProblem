@@ -23,7 +23,7 @@ namespace PreferredElementData.Tests
                         var colors = Enumerable.Range(0, noOfColors)
                             .Select(a => new BrickColorCode { 
                                 ColorCodeId = random.Next(1, 6),
-                                Order = (uint)a
+                                Order = a
                             }).ToList();
 
                         var brick = new Brick

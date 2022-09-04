@@ -56,12 +56,12 @@ namespace PreferredElementData.Migrations
                 {
                     BrickId = table.Column<int>(type: "int", nullable: false),
                     ColorCodeId = table.Column<int>(type: "int", nullable: false),
-                    Order = table.Column<long>(type: "bigint", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BrickColorCodes", x => new { x.BrickId, x.ColorCodeId, x.Order });
+                    table.PrimaryKey("PK_BrickColorCodes", x => new { x.BrickId, x.Order, x.ColorCodeId });
                     table.ForeignKey(
                         name: "FK_BrickColorCodes_Bricks_BrickId",
                         column: x => x.BrickId,
@@ -77,24 +77,26 @@ namespace PreferredElementData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BrickItem",
+                name: "ItemBrick",
                 columns: table => new
                 {
-                    BricksId = table.Column<int>(type: "int", nullable: false),
-                    ItemsId = table.Column<int>(type: "int", nullable: false)
+                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    BrickId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BrickItem", x => new { x.BricksId, x.ItemsId });
+                    table.PrimaryKey("PK_ItemBrick", x => new { x.ItemId, x.BrickId });
                     table.ForeignKey(
-                        name: "FK_BrickItem_Bricks_BricksId",
-                        column: x => x.BricksId,
+                        name: "FK_ItemBrick_Bricks_BrickId",
+                        column: x => x.BrickId,
                         principalTable: "Bricks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BrickItem_Items_ItemsId",
-                        column: x => x.ItemsId,
+                        name: "FK_ItemBrick_Items_ItemId",
+                        column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -141,9 +143,9 @@ namespace PreferredElementData.Migrations
                 column: "ColorCodeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BrickItem_ItemsId",
-                table: "BrickItem",
-                column: "ItemsId");
+                name: "IX_ItemBrick_BrickId",
+                table: "ItemBrick",
+                column: "BrickId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MasterData_ItemId",
@@ -157,7 +159,7 @@ namespace PreferredElementData.Migrations
                 name: "BrickColorCodes");
 
             migrationBuilder.DropTable(
-                name: "BrickItem");
+                name: "ItemBrick");
 
             migrationBuilder.DropTable(
                 name: "MasterData");
