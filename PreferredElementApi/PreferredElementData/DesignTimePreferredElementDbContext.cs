@@ -8,7 +8,7 @@ namespace PreferredElementData
         public PreferredElementDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<PreferredElementDbContext>();
-            optionsBuilder.UseSqlServer($"Server=localhost;Database=PreferredElement;Integrated Security=True;",
+            optionsBuilder.UseSqlServer("Server=localhost;Database=PreferredElement;Integrated Security=True;",
                 a => a.MigrationsHistoryTable("__EFMigrationsHistory"));
 
             var context = Activator.CreateInstance(typeof(PreferredElementDbContext), optionsBuilder.Options) as PreferredElementDbContext;

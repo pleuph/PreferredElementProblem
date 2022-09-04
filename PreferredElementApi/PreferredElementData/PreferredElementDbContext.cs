@@ -9,7 +9,7 @@ namespace PreferredElementData
         public DbSet<BrickColorCode> BrickColorCodes { get; set; }
         public DbSet<ColorCode> ColorCodes { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<MasterData> MasterData { get; set; }
+        public DbSet<MasterData> MasterDatas { get; set; }
 
         public PreferredElementDbContext(DbContextOptions<PreferredElementDbContext> options) : base(options) { }
 
@@ -49,6 +49,7 @@ namespace PreferredElementData
             });
 
             modelBuilder.Entity<MasterData>(a => {
+                a.ToTable("MasterData"); // TODO: Fix inconsistent naming
                 a.Property(b => b.Created).HasDefaultValueSql("getutcdate()");
             });
         }
