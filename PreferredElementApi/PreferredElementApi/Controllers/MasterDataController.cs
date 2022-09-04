@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using PreferredElementApi.Models;
 using PreferredElementApi.Services;
-using PreferredElementData.Models;
 
 namespace PreferredElementApi.Controllers
 {
@@ -18,9 +18,15 @@ namespace PreferredElementApi.Controllers
         }
 
         [HttpGet]
-        public MasterData[] GetMasterDatas()
+        public MasterDataDto[] GetMasterDatas()
         {
             return preferredElementService.GetMasterDatas();
+        }
+
+        [HttpGet("getbyitemid")]
+        public MasterDataDto GetMasterDataByItemId(int itemId)
+        {
+            return preferredElementService.GetMasterDataByItemId(itemId);
         }
     }
 }

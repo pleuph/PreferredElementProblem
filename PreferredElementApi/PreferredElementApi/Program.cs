@@ -17,6 +17,8 @@ builder.Services.AddDbContext<PreferredElementDbContext>(options =>
 builder.Services.AddTransient<IPreferredElementRepository, PreferredElementRepository>();
 builder.Services.AddTransient<IPreferredElementService, PreferredElementService>();
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

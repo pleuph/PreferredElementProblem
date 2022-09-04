@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PreferredElementData.Models;
+﻿using PreferredElementData.Models;
 
 namespace PreferredElementData
 {
@@ -15,6 +14,11 @@ namespace PreferredElementData
         public MasterData[] GetMasterDatas()
         {
             return dbContext.MasterDatas.ToArray();
+        }
+
+        public MasterData GetMasterDataByItemId(int itemId)
+        {
+            return dbContext.MasterDatas.FirstOrDefault(x => x.ItemId == itemId);
         }
 
         public Item[] GetItems()
