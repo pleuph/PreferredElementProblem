@@ -15,6 +15,7 @@
         // the data model would certainly have to account for different markets,
         // currencies and possibly other factors. This could be achieved in 
         // multiple ways that we will consider out of scope for now.
+        // The precision of the price could be an important factor.
         // The status as well as the price are inherently likely to change over 
         // time. Having a 'Created' timestamp would allow us to add a new
         // MasterData record to an item any time the price or status changes,
