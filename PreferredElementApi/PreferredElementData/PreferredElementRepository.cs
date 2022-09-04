@@ -46,6 +46,7 @@ namespace PreferredElementData
                 from item in dbContext.Items
                 where item.ItemBricks.Count() == brickDesignIds.Length
                 && item.ItemBricks.All(a => brickDesignIds.Contains(a.Brick.DesignId))
+                // TODO: Get newest master data
                 let masterData = item.MasterDatas.First()
                 orderby masterData.Status, masterData.Price
                 select item;

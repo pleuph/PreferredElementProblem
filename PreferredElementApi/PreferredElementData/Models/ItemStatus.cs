@@ -8,6 +8,9 @@
     // likely to change, or new statuses are likely to appear, the order could
     // become a problem. 
     // For now, we will assume those issues are not relevant.
+    // Update: A non-valid value was accidentally generated for some test data.
+    // This could make the case that this should exist in the database so we
+    // have a foreign key constraint.
 
     public enum ItemStatus
     {

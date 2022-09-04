@@ -22,7 +22,9 @@ namespace PreferredElementData
 
             modelBuilder.Entity<BrickColorCode>(a => {
                 a.Property(b => b.Created).HasDefaultValueSql("getutcdate()");
-                a.HasKey(b => new { b.BrickId, b.Order, b.ColorCodeId });
+
+                // Having the key fields in this order makes the data clustered in the preferred order.
+                a.HasKey(b => new { b.BrickId, b.Order, b.ColorCodeId }); 
             });
 
             modelBuilder.Entity<ColorCode>(a => { 
