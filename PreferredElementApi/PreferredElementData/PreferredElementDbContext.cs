@@ -28,12 +28,12 @@ namespace PreferredElementData
                 a.Property(b => b.Created).HasDefaultValueSql("getutcdate()");
                 a.Property(b => b.Name).IsRequired();
                 a.HasData(  
-                    new ColorCode() { Id = 0, Name = "Red" },
-                    new ColorCode() { Id = 1, Name = "Green" },
-                    new ColorCode() { Id = 2, Name = "Blue" },
-                    new ColorCode() { Id = 3, Name = "Yellow" },
-                    new ColorCode() { Id = 4, Name = "Orange" },
-                    new ColorCode() { Id = 5, Name = "Purple" }
+                    new ColorCode() { Id = 1, Name = "Red" },
+                    new ColorCode() { Id = 2, Name = "Green" },
+                    new ColorCode() { Id = 3, Name = "Blue" },
+                    new ColorCode() { Id = 4, Name = "Yellow" },
+                    new ColorCode() { Id = 5, Name = "Orange" },
+                    new ColorCode() { Id = 6, Name = "Purple" }
                 );
             });
 
