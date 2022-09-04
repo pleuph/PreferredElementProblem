@@ -15,12 +15,11 @@ An Item has:
 MasterData has:
 - Link to one item - foreign key.
 - Price - Different currencies and markets? History?
-- Status, one of four values in desending order of 'quality':
+- Status - Status history? One of four values in desending order of 'quality':
   - Normal
   - Novelty
   - Outgoing
   - Discontinued
-Status history?
   
 ### Services
 
